@@ -1,12 +1,7 @@
 import { Application,Router,RouterContext } from "./deps.ts";
 
 const app=new Application();
-const router=new Router();
-
-router.get("/",(ctx: RouterContext)=>
-{
-    ctx.response.body='Hello World';
-})
+import router from "./router.ts";
 
 app.use(router.routes());
 app.use(router.allowedMethods());
