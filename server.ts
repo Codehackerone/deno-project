@@ -1,4 +1,4 @@
-import { Application,Router,RouterContext } from "https://deno.land/x/oak@v7.5.0/mod.ts";
+import { Application,Router,RouterContext } from "./deps.ts";
 
 const app=new Application();
 const router=new Router();
