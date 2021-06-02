@@ -3,8 +3,10 @@ class AuthController{
     login(){
 
     }
-    register(ctx:RouterContext){
-
+    async register(ctx:RouterContext){
+        const {name, email, password}=await ctx.request.body().value;
+        ctx.response.body=name;
+        console.log(name);
     }
 }
 
