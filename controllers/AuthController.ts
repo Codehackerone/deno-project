@@ -7,10 +7,11 @@ class AuthController{
     async register(ctx:RouterContext){
         const {name, email, password}=await ctx.request.body().value;
         const user=await User.findOne({email});
-        if(user)
+        console.log(user);
+        if(!user)
         {
             ctx.response.status=422;
-            ctx.response.body={message:"Email is already user"};
+            ctx.response.body={message:"Email is already used"};
             return;
         }
         else{
