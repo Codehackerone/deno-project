@@ -16,8 +16,10 @@ export default class User{
         return usersCollection.findOne(params,{noCursorTimeout:false} as any);
     }
 
-    async save(){
-        const id=await usersCollection.insertOne(this);
+    async save(this:any){
+        delete this.id;
+        const oid=await usersCollection.insertOne(this);
+        this.id=oid;
         return this;
     }
 }

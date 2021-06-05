@@ -6,13 +6,13 @@ class AuthController{
     }
     async register(ctx:RouterContext){
         const {name, email, password}=await ctx.request.body().value;
-        let user=await User.findOne({email});
-        if(user)
-        {
-            ctx.response.status=422;
-            ctx.response.body={message:"Email is already used"};
-            return;
-        }
+        // let user=await User.findOne({email});
+        // if(user)
+        // {
+        //     ctx.response.status=422;
+        //     ctx.response.body={message:"Email is already used"};
+        //     return;
+        // }
         const hashedPassword=hashSync(password);
         let newuser=new User({name,email,password:hashedPassword});
         await newuser.save();
