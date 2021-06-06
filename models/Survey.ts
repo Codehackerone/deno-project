@@ -9,7 +9,11 @@ export default class Survey{
         public description:string
     ){}
 
-    create(){
-        
+    async create(this:any){
+        delete this.id;
+        const oid=await surveysCollection.insertOne(this);
+        delete this._id;
+        this.id=oid;
+        return this;
     }
 }

@@ -8,8 +8,8 @@ class SurveyController{
     
     }
     async create(ctx:RouterContext){
-        const {name,desription}=await ctx.request.body().value;
-        const survey=new Survey('1',name,desription);
+        const {name,description}=await ctx.request.body().value;
+        const survey=new Survey('1',name,description);
         await survey.create();
         ctx.response.status=201;
         ctx.response.body=survey;
