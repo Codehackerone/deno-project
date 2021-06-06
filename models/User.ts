@@ -12,8 +12,9 @@ export default class User{
         this.password=password;
     }
 
-    static findOne(params: object){
-        return usersCollection.findOne(params,{noCursorTimeout:false} as any);
+    static async findOne(params: object):Promise<any>{
+        let user=await usersCollection.findOne(params,{noCursorTimeout:false} as any);
+        return user;
     }
 
     async save(this:any){
