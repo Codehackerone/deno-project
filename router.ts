@@ -15,7 +15,7 @@ router
     .get('/api/survey',surveyController.getAllForUser)
     .post('/api/survey/:id',surveyController.getSingle)
     .post('/api/survey',surveyController.create)
-    .put('/api/survey',surveyController.update)
+    .put('/api/survey/:id',surveyController.update)
     .delete('/api/survey',surveyController.delete)
 
 export default router;
