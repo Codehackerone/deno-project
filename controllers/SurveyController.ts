@@ -2,7 +2,8 @@ import { RouterContext } from "../deps.ts";
 import Survey from "../models/Survey.ts";
 class SurveyController{
     async getAllForUser(ctx:RouterContext){
-        ctx.response.body=[];
+        // ctx.response.body="found";
+        ctx.response.body=await Survey.findByUser("1");
     }
     async getSingle(ctx:RouterContext){
     
@@ -15,7 +16,7 @@ class SurveyController{
         ctx.response.body=survey;
     }
     async update(ctx:RouterContext){
-    
+        const {name,description}=await ctx.request.body().value;
     }
     async delete(ctx:RouterContext){
     

@@ -16,4 +16,13 @@ export default class Survey{
         this.id=oid;
         return this;
     }
+
+    static async findByUser(userId:string){
+        let surveys= surveysCollection.find({},{noCursorTimeout:false} as any);
+        return surveys.toArray();
+    }
+
+    private prepare(data:object){
+
+    }
 }
