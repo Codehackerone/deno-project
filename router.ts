@@ -12,6 +12,7 @@ router
     .post('/api/login',authController.login)
     .post('/api/register',authController.register)
     //For survey
+    .get('/api/surveys',surveyController.getAll)
     .get('/api/survey',surveyController.getAllForUser)
     .get('/api/survey/:id',surveyController.getSingle)
     .post('/api/survey',surveyController.create)

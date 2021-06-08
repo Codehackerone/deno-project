@@ -1,6 +1,10 @@
 import { RouterContext } from "../deps.ts";
 import Survey from "../models/Survey.ts";
 class SurveyController{
+    async getAll(ctx:RouterContext){
+        let surveys=await Survey.findAll();
+        ctx.response.body=surveys;
+    }
     async getAllForUser(ctx:RouterContext){
         let surveys=await Survey.findByUser("1");
         ctx.response.body=surveys;
