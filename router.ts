@@ -13,7 +13,7 @@ router
     .post('/api/register',authController.register)
     //For survey
     .get('/api/survey',surveyController.getAllForUser)
-    .post('/api/survey/:id',surveyController.getSingle)
+    .get('/api/survey/:id',surveyController.getSingle)
     .post('/api/survey',surveyController.create)
     .put('/api/survey/:id',surveyController.update)
     .delete('/api/survey',surveyController.delete)

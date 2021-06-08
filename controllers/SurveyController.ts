@@ -2,11 +2,18 @@ import { RouterContext } from "../deps.ts";
 import Survey from "../models/Survey.ts";
 class SurveyController{
     async getAllForUser(ctx:RouterContext){
-        // ctx.response.body="found";
-        ctx.response.body=await Survey.findByUser("1");
+        let surveys=await Survey.findByUser("1");
+        ctx.response.body=surveys;
     }
     async getSingle(ctx:RouterContext){
-    
+        const id=ctx.params.id!;
+        const survey=await Survey.findById(id);
+        if(!survey){
+            ctx.response.status=404;
+            ctx.response.body={message:"Incorrect ID"};
+            return;
+        }
+        ctx.response.body=survey;
     }
     async create(ctx:RouterContext){
         const {name,description}=await ctx.request.body().value;

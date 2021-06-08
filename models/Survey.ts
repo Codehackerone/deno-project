@@ -17,12 +17,13 @@ export default class Survey{
         return this;
     }
 
-    static async findByUser(userId:string){
-        let surveys= surveysCollection.find({},{noCursorTimeout:false} as any);
+    static async findByUser(userId:string):Promise<any>{
+        let surveys= surveysCollection.find({userId},{noCursorTimeout:false} as any);
         return surveys.toArray();
     }
 
-    private prepare(data:object){
-
+    static async findById(_id:string):Promise<any>{
+        let survey=surveysCollection.findOne({_id},{noCursorTimeout:false} as any);
+        return survey;
     }
 }
