@@ -1,3 +1,4 @@
+import {Bson} from "../deps.ts";
 import { surveysCollection } from "../mongo.ts";
 import BaseModel from "./BaseModel.ts";
 
@@ -28,8 +29,10 @@ export default class Survey extends BaseModel{
         return surveys.map((survey:any) => Survey.prepare(survey));
     }
 
-    static async findById(_id:string):Promise<Survey|null>{
-        let survey=surveysCollection.findOne({_id},{noCursorTimeout:false} as any);
+    static async findById(id:string):Promise<Survey|null>{
+        let survey=await surveysCollection.findOne({_id:new Bson.ObjectID(id)},{noCursorTimeout:false} as any);
+        console.log(survey);
+        
         if(!survey)return null;
         else return Survey.prepare(survey);
     }
@@ -37,7 +40,7 @@ export default class Survey extends BaseModel{
     async update({ name, description }: { name: string; description: string }):Promise<Survey> {
         const { modifiedCount } = await surveysCollection.updateOne({ _id:this.id  }, {
             $set: { name, description },
-          });
+          },{noCursorTimeout:false} as any);
         if (modifiedCount > 0) {
           this.name = name;
           this.description = description;
