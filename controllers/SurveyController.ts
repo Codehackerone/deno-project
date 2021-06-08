@@ -37,7 +37,16 @@ class SurveyController{
         return;
     }
     async delete(ctx:RouterContext){
-    
+        const id: string = ctx.params.id!;
+        const survey: Survey | null = await Survey.findById(id);
+        if(!survey){
+            ctx.response.status=404;
+            ctx.response.body={message:"Survey not found"};
+            return; 
+        } 
+        await survey.delete();
+        ctx.response.status = 204;
+        ctx.response.body={message:"Survey deleted"};
     }
 }
 

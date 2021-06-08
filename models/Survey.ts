@@ -51,6 +51,10 @@ export default class Survey extends BaseModel{
         return this;
       }
 
+    delete() {
+    return surveysCollection.deleteOne({ _id: this.id});
+    }
+
     static prepare(data: any): Survey {
         data = BaseModel.prepare(data);
         const survey = new Survey(
