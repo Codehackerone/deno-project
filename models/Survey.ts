@@ -34,6 +34,17 @@ export default class Survey extends BaseModel{
         else return Survey.prepare(survey);
     }
 
+    async update({ name, description }: { name: string; description: string }):Promise<Survey> {
+        const { modifiedCount } = await surveysCollection.updateOne({ _id:this.id  }, {
+            $set: { name, description },
+          });
+        if (modifiedCount > 0) {
+          this.name = name;
+          this.description = description;
+        }
+        return this;
+      }
+
     static prepare(data: any): Survey {
         data = BaseModel.prepare(data);
         const survey = new Survey(
