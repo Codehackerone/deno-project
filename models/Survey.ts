@@ -25,12 +25,13 @@ export default class Survey extends BaseModel{
 
     static async findByUser(userId:string):Promise<Survey[]>{
         let surveys= surveysCollection.find({userId},{noCursorTimeout:false} as any);
-        return surveys.map((survey: any) => Survey.prepare(survey));
+        return surveys.map((survey:any) => Survey.prepare(survey));
     }
 
-    static async findById(_id:string):Promise<any>{
+    static async findById(_id:string):Promise<Survey|null>{
         let survey=surveysCollection.findOne({_id},{noCursorTimeout:false} as any);
-        return survey;
+        if(!survey)return null;
+        else return Survey.prepare(survey);
     }
 
     static prepare(data: any): Survey {
