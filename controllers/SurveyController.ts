@@ -7,19 +7,14 @@ class SurveyController{
     }
     async getSingle(ctx:RouterContext){
         const id=ctx.params.id!;
-        try{
         const survey=await Survey.findById(id);
-        if(!survey){
+        if(!survey)
+        {
             ctx.response.status=404;
             ctx.response.body={message:"Incorrect ID"};
             return;
         }
-        ctx.response.body=survey;
-        }catch(err)
-        {
-            console.log(err);
-            
-        }
+        ctx.response.body=survey;   
     }
     async create(ctx:RouterContext){
         const {name,description}=await ctx.request.body().value;

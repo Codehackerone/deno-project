@@ -39,10 +39,10 @@ Content-Type: application/json
     "description":"survey 1khdsifk"
 }
 ### Update survey
-GET http://localhost:8001/api/survey/id
+PUT http://localhost:8001/api/survey/60bc5a41ac01bfa3c2375f78 HTTP/1.1
 Content-Type: application/json
 
 {
-    "name":"Survey 1",
+    "name":"Survey 2",
     "description":"survey 1khdsifk"
 }

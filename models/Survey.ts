@@ -30,15 +30,18 @@ export default class Survey extends BaseModel{
     }
 
     static async findById(id:string):Promise<Survey|null>{
-        let survey=await surveysCollection.findOne({_id:new Bson.ObjectID(id)},{noCursorTimeout:false} as any);
-        console.log(survey);
-        
-        if(!survey)return null;
-        else return Survey.prepare(survey);
+        try{
+            let survey=await surveysCollection.findOne({_id:new Bson.ObjectID(id)},{noCursorTimeout:false} as any);
+            if(!survey)return null;
+            else return Survey.prepare(survey);
+        }
+        catch(err){
+            return null;
+        }
     }
 
     async update({ name, description }: { name: string; description: string }):Promise<Survey> {
-        const { modifiedCount } = await surveysCollection.updateOne({ _id:this.id  }, {
+        const { modifiedCount }= await surveysCollection.updateOne({ _id:this.id  }, {
             $set: { name, description },
           },{noCursorTimeout:false} as any);
         if (modifiedCount > 0) {
