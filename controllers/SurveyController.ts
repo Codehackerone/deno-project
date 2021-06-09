@@ -1,12 +1,14 @@
 import { RouterContext } from "../deps.ts";
 import Survey from "../models/Survey.ts";
+import User from "../models/User.ts";
 class SurveyController {
   async getAll(ctx: RouterContext) {
     let surveys = await Survey.findAll();
     ctx.response.body = surveys;
   }
   async getAllForUser(ctx: RouterContext) {
-    let surveys = await Survey.findByUser("1");
+    const user: User = ctx.state.user as User;
+    let surveys = await Survey.findByUser(user.id);
     ctx.response.body = surveys;
   }
   async getSingle(ctx: RouterContext) {
@@ -21,7 +23,8 @@ class SurveyController {
   }
   async create(ctx: RouterContext) {
     const { name, description } = await ctx.request.body().value;
-    const survey = new Survey("1", name, description);
+    const user: User = ctx.state.user as User;
+    const survey = new Survey(user.id, name, description);
     await survey.create();
     ctx.response.status = 201;
     ctx.response.body = survey;

@@ -14,7 +14,7 @@ export const authMiddleware = async (ctx: RouterContext, next: Function) => {
     ctx.response.status = 401;
     return;
   }
-  const data:any = await verify(jwt, Deno.env.get("JWT_SECRET_KEY") || "", {isThrowing: false,}as any);
+  const data:any = await verify(jwt, Deno.env.get("JWT_SECRET")||"", {isThrowing: false,}as any);
   if (data) {
     const user = await User.findOne({ email: data.payload?.iss });
     ctx.state.user = user;

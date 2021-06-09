@@ -1,9 +1,9 @@
 import { usersCollection } from "../mongo.ts";
 export default class User {
-  public id: String;
-  public name: String;
-  public email: String;
-  public password: String;
+  public id: string;
+  public name: string;
+  public email: string;
+  public password: string;
 
   constructor({ id = "", name = "", email = "", password = "" }) {
     this.id = id;
