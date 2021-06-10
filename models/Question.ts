@@ -15,7 +15,9 @@ export default class Question extends BaseModel {
   }
 
   static async findBySurvey(surveyId: string): Promise<Question[]> {
-    const questions = await questionCollection.find({ surveyId });
+    const questions = await questionCollection.find({ surveyId }, {
+      noCursorTimeout: false,
+    } as any);
     if (!questions) {
       return [];
     }
@@ -23,7 +25,8 @@ export default class Question extends BaseModel {
   }
 
   static async findOne(id: string): Promise<Question | null> {
-    const question = await questionCollection.findOne({_id: new Bson.ObjectID(id)});
+    const question = await questionCollection.findOne({_id: new Bson.ObjectID(id)},
+        { noCursorTimeout: false } as any);
     if (!question) {
       return null;
     }
