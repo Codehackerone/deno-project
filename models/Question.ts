@@ -1,4 +1,4 @@
-import {Bson} from "../deps.ts";
+import { Bson } from "../deps.ts";
 import { questionCollection } from "../mongo.ts";
 import BaseModel from "./BaseModel.ts";
 
