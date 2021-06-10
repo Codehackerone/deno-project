@@ -58,3 +58,5 @@ export class QuestionController {
     ctx.response.status = 204;
   }
 }
+
+export default new QuestionController();
