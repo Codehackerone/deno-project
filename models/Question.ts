@@ -67,7 +67,15 @@ export default class Question extends BaseModel {
   }
 
   async delete() {
-    return questionCollection.deleteOne({ _id: this.id});
+    return questionCollection.deleteOne({ _id: this.id });
+  }
+
+  isText() {
+    return this.type === QuestionType.TEXT;
+  }
+
+  isChoice() {
+    return this.type === QuestionType.CHOICE;
   }
 
   static prepare(data: any): Question {
