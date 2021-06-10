@@ -18,7 +18,7 @@ export default class Question extends BaseModel {
     if (!questions) {
       return [];
     }
-    return questions.map((q:object => Question.prepare(q));
+    return questions.map((q:any)=> Question.prepare(q));
   }
 
   async create(this: any) {
@@ -26,6 +26,19 @@ export default class Question extends BaseModel {
     const oid = await questionCollection.insertOne(this);
     this.id = oid;
     return this;
+  }
+
+  static prepare(data: any): Question {
+    data = BaseModel.prepare(data);
+    const question = new Question(
+      data.surveyId,
+      data.text,
+      data.type,
+      data.required,
+      data.data,
+    );
+    question.id = data.id;
+    return question;
   }
 }
 
