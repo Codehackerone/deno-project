@@ -66,6 +66,10 @@ export default class Question extends BaseModel {
     return this;
   }
 
+  async delete() {
+    return questionCollection.deleteOne({ _id: this.id});
+  }
+
   static prepare(data: any): Question {
     data = BaseModel.prepare(data);
     const question = new Question(
