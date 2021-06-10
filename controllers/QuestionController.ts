@@ -32,4 +32,17 @@ export class QuestionController {
     ctx.response.status = 201;
     ctx.response.body = question;
   }
+
+  async update(ctx: RouterContext) {
+    const id: string = ctx.params.id!;
+    const { text, type, required, data } = await ctx.request.body().value;
+    const question: Question | null = await Question.findOne(id);
+    if (!question) {
+      ctx.response.status = 404;
+      ctx.response.body = { message: "Invalid Question ID" };
+      return;
+    }
+    await question.update(text, type, required, data);
+    ctx.response.body = question;
+  }
 }
