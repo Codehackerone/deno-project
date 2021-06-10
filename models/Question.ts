@@ -13,9 +13,17 @@ export default class Question extends BaseModel {
     super();
   }
 
-  async create(this:any) {
+  static async findBySurvey(surveyId: string): Promise<Question[]> {
+    const questions = await questionCollection.find({ surveyId });
+    if (!questions) {
+      return [];
+    }
+    return questions.map((q:object => Question.prepare(q));
+  }
+
+  async create(this: any) {
     delete this.id;
-    const oid= await questionCollection.insertOne(this);
+    const oid = await questionCollection.insertOne(this);
     this.id = oid;
     return this;
   }
