@@ -1,3 +1,4 @@
+import {Bson} from "../deps.ts";
 import { questionCollection } from "../mongo.ts";
 import BaseModel from "./BaseModel.ts";
 
@@ -18,7 +19,15 @@ export default class Question extends BaseModel {
     if (!questions) {
       return [];
     }
-    return questions.map((q:any)=> Question.prepare(q));
+    return questions.map((q: any) => Question.prepare(q));
+  }
+
+  static async findOne(id: string): Promise<Question | null> {
+    const question = await questionCollection.findOne({_id: new Bson.ObjectID(id)});
+    if (!question) {
+      return null;
+    }
+    return Question.prepare(question);
   }
 
   async create(this: any) {
@@ -35,7 +44,7 @@ export default class Question extends BaseModel {
       data.text,
       data.type,
       data.required,
-      data.data,
+      data.data
     );
     question.id = data.id;
     return question;
