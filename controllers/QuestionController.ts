@@ -45,4 +45,16 @@ export class QuestionController {
     await question.update(text, type, required, data);
     ctx.response.body = question;
   }
+
+  async delete(ctx: RouterContext) {
+    const id: string = ctx.params.id!;
+    const question: Question | null = await Question.findOne(id);
+    if (!question) {
+      ctx.response.status = 404;
+      ctx.response.body = { message: "Invalid Question ID" };
+      return;
+    }
+    await question.delete();
+    ctx.response.status = 204;
+  }
 }
