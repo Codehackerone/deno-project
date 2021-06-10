@@ -13,3 +13,8 @@ export default class Question extends BaseModel {
     super();
   }
 }
+
+export enum QuestionType {
+  TEXT = "text",
+  CHOICE = "choice",
+}
