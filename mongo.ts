@@ -21,3 +21,4 @@ await client.connect({
 const db = client.database("deno_project");
 export const usersCollection = db.collection("users");
 export const surveysCollection = db.collection("survey");
+export const QuestionController=db.collection("question");
