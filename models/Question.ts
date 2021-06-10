@@ -8,9 +8,16 @@ export default class Question extends BaseModel {
     public text: string,
     public type: QuestionType,
     public required: boolean,
-    public data: any,
+    public data: any
   ) {
     super();
+  }
+
+  async create(this:any) {
+    delete this.id;
+    const oid= await questionCollection.insertOne(this);
+    this.id = oid;
+    return this;
   }
 }
 
