@@ -25,8 +25,10 @@ export default class Question extends BaseModel {
   }
 
   static async findOne(id: string): Promise<Question | null> {
-    const question = await questionCollection.findOne({_id: new Bson.ObjectID(id)},
-        { noCursorTimeout: false } as any);
+    const question = await questionCollection.findOne(
+      { _id: new Bson.ObjectID(id) },
+      { noCursorTimeout: false } as any
+    );
     if (!question) {
       return null;
     }
@@ -37,6 +39,30 @@ export default class Question extends BaseModel {
     delete this.id;
     const oid = await questionCollection.insertOne(this);
     this.id = oid;
+    return this;
+  }
+
+  public async update(
+    text: string,
+    type: QuestionType,
+    required: boolean,
+    data: any
+  ) {
+    this.text = text;
+    this.type = type;
+    this.required = required;
+    this.data = data;
+    await questionCollection.updateOne(
+      { _id: this.id },
+      {
+        $set: {
+          text: this.text,
+          type: this.type,
+          required: this.required,
+          data: this.data,
+        },
+      }
+    );
     return this;
   }
 
